@@ -1,43 +1,17 @@
-// src/App.jsx
-import "./App.css";
-import { useState } from "react";
-import Display from "./components/Display";
-import Keypad from "./components/Keypad";
-import History from "./components/History";
+import React from 'react';
+import TodoApp from './components/TodoApp';
+import './App.css';
 
-export default function App() {
-  const [input, setInput] = useState("");
-  const [history, setHistory] = useState([]);
-
-  const handleClick = (value) => {
-    if (value === "C") {
-      setInput("");
-      return;
-    }
-    if (value === "AC") {
-      setInput("");
-      setHistory([]);
-      return;
-    }
-    if (value === "=") {
-      try {
-        const result = Function(`"use strict"; return (${input})`)();
-        setInput(String(result));
-        setHistory((prev) => [`${input} = ${result}`, ...prev]);
-      } catch {
-        setInput("Error");
-      }
-      return;
-    }
-    setInput((prev) => prev + value);
-  };
-
+function App() {
   return (
     <div className="container">
-      <h1>React 계산기</h1>
-      <Display value={input} />
-      <Keypad onKey={handleClick} />
-      <History records={history} />
+      <header>
+        <h1>나의 할 일 관리 앱</h1>
+      </header>
+      <main>
+        <TodoApp />
+      </main>
     </div>
   );
 }
+export default App;
